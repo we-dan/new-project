@@ -1,6 +1,106 @@
-# New Project
+# Photography Portfolio
 
 > Built with [Shape.town](https://shape.town) + Ally
+
+## Product Overview
+
+A minimal, elegant photography portfolio showcasing project work with dark/light theme support and responsive design.
+
+```mermaid
+graph TB
+    subgraph "Product Architecture"
+        A[App Entry] --> B[Theme Provider]
+        B --> C[Router]
+        C --> D[Header/Navigation]
+
+        C --> E[Portfolio Page]
+        C --> F[Project Detail]
+        C --> G[About Page]
+        C --> H[Contact Page]
+
+        E --> I[Project Grid Component]
+        I --> J[Project Cards]
+
+        D --> K[Theme Toggle]
+        K --> L[useTheme Hook]
+        L --> M[localStorage]
+    end
+
+    style A fill:#667eea
+    style C fill:#764ba2
+    style I fill:#f093fb
+    style K fill:#4facfe
+```
+
+## User Flows
+
+### 1. Browse Projects Flow
+```mermaid
+flowchart LR
+    A[Land on Portfolio] --> B{Projects Loaded?}
+    B -->|Yes| C[View Project Grid]
+    B -->|No| D[Show Loading State]
+    D --> C
+    C --> E[Click Project Card]
+    E --> F[Navigate to Project Detail]
+    F --> G[View Full Images & Description]
+    G --> H{User Action}
+    H -->|Back| C
+    H -->|Next Project| F
+```
+
+### 2. Theme Toggle Flow
+```mermaid
+flowchart TD
+    A[User Clicks Theme Toggle] --> B[useTheme Hook Called]
+    B --> C{Current Theme?}
+    C -->|Light| D[Set Dark Theme]
+    C -->|Dark| E[Set Light Theme]
+    D --> F[Update localStorage]
+    E --> F
+    F --> G[Apply Theme Class to DOM]
+    G --> H[Re-render with New Colors]
+```
+
+### 3. Contact Flow
+```mermaid
+flowchart LR
+    A[Navigate to Contact] --> B[View Contact Form]
+    B --> C{Form Valid?}
+    C -->|No| D[Show Validation Errors]
+    D --> B
+    C -->|Yes| E[Submit Form]
+    E --> F[Show Success Toast]
+    F --> G[Clear Form]
+```
+
+### 4. Navigation Flow
+```mermaid
+stateDiagram-v2
+    [*] --> Portfolio
+    Portfolio --> ProjectDetail: Click Project
+    Portfolio --> About: Click About
+    Portfolio --> Contact: Click Contact
+
+    ProjectDetail --> Portfolio: Back to Grid
+    ProjectDetail --> ProjectDetail: Next/Previous
+
+    About --> Portfolio: Click Portfolio
+    About --> Contact: Click Contact
+
+    Contact --> Portfolio: Click Portfolio
+    Contact --> About: Click About
+
+    Portfolio --> [*]
+```
+
+## Key Features
+
+- **Responsive Grid Layout**: Projects displayed in adaptive 1-3 column grid
+- **Theme Switching**: Persistent dark/light mode with smooth transitions
+- **Project Details**: Full-screen image galleries with descriptions
+- **Contact Form**: Validated form with success/error feedback
+- **Navigation**: Clean header with active route highlighting
 
 ## Tech Stack
 
